@@ -1,0 +1,88 @@
+{% extends "dashboard_app/base.html" %}
+{% load static %}
+<!DOCTYPE html>
+{% block title %}
+  My Blog
+{% endblock title %}
+
+{% block Content %}
+
+    <div id="content-wrapper">
+
+      <div class="container-fluid">
+
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="index.html">Dashboard</a>
+          </li>
+          <li class="breadcrumb-item active">Profile</li>
+        </ol>
+
+        <!-- Page Content -->
+        <h1>My Profile</h1>
+        <hr>
+        <p>Edit Your Profile</p>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+                <ul>
+                    <div class="form-row">
+
+                        <div class="form-group col-md-6">
+                        {{form.first_name.label_tag }}
+                        {{ form.first_name}}
+                        </div>
+    
+                        <div class="form-group col-md-6">
+                            {{form.last_name.label_tag }}
+                            {{ form.last_name}}
+                        </div>
+    
+                        <div class="form-group col-md-6">
+                            {{form.email.label_tag }}
+                            {{ form.email}}
+                        </div>
+    
+                        <div class="form-group col-md-6">
+                            {{form.username.label_tag }}
+                            {{ form.username}}
+                        </div>
+
+
+                        <div class="form-inline col-md-6">
+                            {{proform.profile_seller.label_tag }}
+                            {{ proform.profile_seller}}
+                        </div>
+                        <div class="form-group col-md-6">
+                            {{proform.profile_phone.label_tag }} 
+                            {{ proform.profile_phone}}
+                        </div>
+                       <!-- Profile UserProfile Form as Proform -->
+                       <div class="form-group col-md-6">
+                        {{proform.profile_pic.label_tag }}
+                        {{ proform.profile_pic }}
+                      </div>
+                    </div>
+
+                    <button class="btn btn-primary" type="submit">Update</button>
+                </ul>
+        </form>
+
+      </div>
+      <!-- /.container-fluid -->
+
+      <!-- Sticky Footer -->
+      <footer class="sticky-footer">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright © Your Website 2019</span>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+    <!-- /.content-wrapper -->
+    {% endblock %}
+  </div>
+  <!-- /#wrapper -->

@@ -1,0 +1,106 @@
+{% extends "listing_app/base_reg.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+{% block title %}
+Register
+{% endblock %}
+
+{% block page_title %}
+Create an Account
+{% endblock page_title %}
+
+{% block Content %}
+  
+<!-- BEGIN Main Container -->  
+          
+        <div class="main-container col1-layout wow bounceInUp animated animated" style="visibility: visible;">     
+	        <div class="main">                     
+                <div class="account-login container">
+                    <div class="text-primary"> {% for message in messages %}
+                      {{ message }}
+                    {% endfor %}</div>
+                    <form method="POST" id="login-form">
+                        {% csrf_token %}
+                        <input name="form_key" type="hidden" value="EPYwQxF6xoWcjLUr">
+                        <fieldset class="col2-set">
+                            <div class="col-md-12 col registered-users">
+                                <h3><strong>Register</strong></h3>
+                                <hr>             
+                                <div class="content">
+                                    <p>If you have an account with us, please log in.</p>
+                                    <ul class="form-list">
+                                        <li class="col-md-6">
+                                            <label for="firstname">First Name<em class="required">*</em></label>
+                                            <div class="input-box">
+                                                <input type="text" name="first_name" id="firstname" class="input-text required-entry" placeholder="First Name">
+                                            </div>
+                                        </li>
+                                        <li class="col-md-6">
+                                            <label for="lastname">Surname<em class="required">*</em></label>
+                                            <div class="input-box">
+                                                <input type="text" name="last_name" id="lastname" class="input-text required-entry" placeholder="Surname">
+                                            </div>
+                                        </li>
+                                        <li class="col-md-6">
+                                            <label for="email">Email Address<em class="required">*</em></label>
+                                            <div class="input-box">
+                                                <input type="email" name="email" id="email" class="input-text required-entry validate-email" placeholder="Email Address">
+                                            </div>
+                                        </li>
+                                        <li class="col-md-6">
+                                            <label for="username">Username<em class="required">*</em></label>
+                                            <div class="input-box">
+                                                <input type="text" name="username"  id="username" class="input-text required-entry" placeholder="Username">
+                                            </div>
+                                        </li>
+                                        <li class="col-md-6">
+                                            <label for="pass">Password<em class="required">*</em></label>
+                                            <div class="input-box">
+                                                <input type="password" name="password" class="input-text required-entry validate-password" id="pass" placeholder="Password">
+                                            </div>
+                                        </li>
+                                        <li class="col-md-6">
+                                            <label for="pass">Confirm Password<em class="required">*</em></label>
+                                            <div class="input-box">
+                                                <input type="password" name="confirm" class="input-text required-entry validate-password" id="pass" placeholder="Confirm Password">
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <div class="remember-me-popup">
+                                        <div class="remember-me-popup-head" style="display:none">
+                                            <h3 id="text2">What's this?</h3>
+                                            <a href="#" class="remember-me-popup-close" onClick="showDiv()" title="Close">Close</a>
+                                        </div>
+                                        <div class="remember-me-popup-body" style="display:none">
+                                            <p id="text1">Checking "Remember Me" will let you access your shopping cart on this computer when you are logged out</p>
+                                            <div class="remember-me-popup-close-button a-right">
+                                                <a href="#" class="remember-me-popup-close button" title="Close" onClick="
+                                                showDiv()"><span>Close</span></a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <p class="required">* Required Fields</p>
+                                    <div class="buttons-set">
+                                        <button type="submit" class="button" title="register" name="register" id="send2"><span>Register</span></button>
+                                        <a href="#" class="forgot-word">Forgot Your Password?</a>
+                                        <a href="{% url 'listing_app:login' %}" class="forgot-word">Login</a>
+                                    </div> <!--buttons-set-->
+                                </div> <!--content-->                               
+                            </div> <!--col-2 registered-users-->
+                            <!-- <div class="col-md-3"></div> -->
+                        </fieldset> <!--col2-set-->
+                    </form>
+                </div> <!--account-login-->
+	        </div><!--main-container-->
+        </div> <!--col1-layout-->
+        <div class="col-12"><p>Yo</p></div>
+
+{% endblock %}
+    
+       
+          
+
+  
