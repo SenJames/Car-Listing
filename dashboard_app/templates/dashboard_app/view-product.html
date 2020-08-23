@@ -1,0 +1,112 @@
+{% extends "dashboard_app/base.html" %}
+{% load static %}
+<!DOCTYPE html>
+{% block title %}
+  My Blog
+{% endblock title %}
+
+{% block Content %}
+
+    <div id="content-wrapper">
+
+      <div class="container-fluid">
+
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="index.html">Dashboard</a>
+          </li>
+          <li class="breadcrumb-item active">Blank Page</li>
+        </ol>
+
+        <!-- Page Content -->
+        <h1>Products</h1>
+        <hr>
+        <p>This is a great starting point for new custom pages.</p>
+        
+
+          <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <thead>
+                <tr>
+                  <th>Car</th>
+                  <th>Year</th>
+                  <th>Price</th>
+                  <th>Milleage</th>
+                  <th>Transmission</th>
+                  <th>Promotion</th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tfoot>
+                <tr>
+                  <th>Car</th>
+                  <th>Year</th>
+                  <th>Price</th>
+                  <th>Milleage</th>
+                  <th>Transmission</th>
+                  <th>Promotion</th>
+                  <th>{{ user.username }}</th>
+                  <th></th>
+                </tr>
+              </tfoot>
+              <tbody>
+                {% if cars %}
+                  
+                {% for prod in cars %}
+                <tr>
+                  <td>{{ prod.car_name  }}</td>
+                  <td>{{ prod.car_year }}</td>
+                  <td>{{ prod.car_price }}</td>
+                  <td>{{ prod.car_mileage }}</td>
+                  <td>{{ prod.car_transmission | upper}}</td>
+                  <td>{{ prod.car_promoted | upper}}</td>
+                  <td><a href="{% url 'dashboard_app:edit-prod' prod.id %}"><button type="submit" class="btn btn-sm btn-primary">Edit</button></a></td>
+                  <td><button type="submit" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#DeleteModal">Delete</button></td>
+                </tr>
+
+                  <!-- Delete Modal-->
+                <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="DeleteModalLabel">Deleting?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">×</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">Are you sure you want to delete the item {{ prod.car_name }} ?.</div>
+                      <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <form action="{% url 'dashboard_app:del-prod' prod.id %}" method="POST">
+                          {% csrf_token %}
+                          <button class="btn btn-primary" href="#">Delete</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+
+              </tbody>
+            </table>
+          </div>
+
+      </div>
+      <!-- /.container-fluid -->
+
+      <!-- Sticky Footer -->
+      <footer class="sticky-footer">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright © Your Website 2019</span>
+          </div>
+        </div>
+      </footer>
+      {% endif %}
+    </div>
+    <!-- /.content-wrapper -->
+    {% endblock %}
+  </div>
+  <!-- /#wrapper -->

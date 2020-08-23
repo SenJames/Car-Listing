@@ -1,0 +1,127 @@
+{% extends "dashboard_app/base.html" %}
+{% load static %}
+<!DOCTYPE html>
+{% block title %}
+  My Blog
+{% endblock title %}
+
+{% block Content %}
+
+
+{% if blog %}
+  
+
+    <div id="content-wrapper">
+
+      <div class="container-fluid">
+
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="index.html">Dashboard</a>
+          </li>
+          <li class="breadcrumb-item active">Blog</li>
+        </ol>
+
+        <!-- Page Content -->
+        <h1>My Blogs</h1>
+        <hr>
+      </div>
+      <!-- /.container-fluid -->
+          <div class="form-group col-md-12">
+          {% for msg in messages %}
+          {{msg}}
+          {% endfor %}
+
+        </div>
+          <!-- DataTables Example -->
+          <div class="card mb-3">
+            <div class="card-header">
+              <i class="fas fa-table"></i>
+              Total Number of Blogs: {{ blog.count }}</div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Blog Title</th>
+                      <th>Category</th>
+                      <th>Date</th>
+                      <th>Date Updated</th>
+                      <th>Author</th>
+                      <th>Views</th>
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>Blog Title</th>
+                      <th>Category</th>
+                      <th>Date</th>
+                      <th>Date Updated</th>
+                      <th>Author</th>
+                      <th>Views</th>
+                    </tr>
+                  </tfoot>
+                  <tbody>
+                    {% for item in blog %}
+                      
+                    <tr>
+                      <td> <a href="{% url 'dashboard_app:edit-blog' item.pst_title %}"> {{item.pst_title}} </a></td>
+                      {% for obj in item.category.all %}
+                      <td>{{obj.cat_name}}</td>
+                      {% endfor %}
+                      <td>{{item.created_date | date }}</td>
+                      <td>{{item.update_date | date }}</td>
+                      <td>{{item.user | upper}}</td>
+                      <td>{{item.content | truncatechars:10}}</td>
+                      <td><button type="submit" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#{{ item.pst_title }}">Delete</button></td>
+                    </tr>
+                </div>
+
+                          {% comment %} The modal that gets triggered by the del button {% endcomment %}
+
+                <div class="modal fade" id="{{ item.pst_title }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="{{ item.pst_title }}">Deleting?</h5>
+                      <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">Are you sure you want to delete the item {{ item.pst_title }} ?.</div>
+                    <div class="modal-footer">
+                      <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                      <form action="{% url 'dashboard_app:del-blog' item.pst_title %}" method="POST">
+                        {% csrf_token %}
+                        <button class="btn btn-primary" href="#">Delete</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+                {% comment %} end of modal {% endcomment %}
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          
+
+
+      <!-- Sticky Footer -->
+      <footer class="sticky-footer">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright © Your Website 2019</span>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+    <!-- /.content-wrapper -->
+    {% endif %}
+    {% endblock %}
+  </div>
+  <!-- /#wrapper -->

@@ -1,0 +1,64 @@
+{% extends "listing_app/base_reg.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+{% block title %}
+Order Form
+{% endblock %}
+
+{% block page_title %}
+Create new Orders
+{% endblock page_title %}
+
+{% block Content %}
+  
+<!-- BEGIN Main Container -->  
+{% if user.is_authenticated %}
+        <div class="main-container col1-layout wow bounceInUp animated animated" style="visibility: visible;">     
+	        <div class="main">                     
+                <div class="account-login container">
+
+                      
+                    <div class="text-primary"> 
+                    {% for message in messages %}
+                      {{ message }}
+                    {% endfor %}
+                    </div>
+                    <form method="POST" id="login-form">
+                        {% csrf_token %}
+                        <input name="form_key" type="hidden" value="EPYwQxF6xoWcjLUr">
+                        <fieldset class="col2-set">
+                            <div class="col-md-12 col registered-users">
+                                <hr>             
+                                <div class="content">
+                                    <p>Add new Orders</p>
+                                    <ul class="form-list">
+                                       <!-- Place for Model Form -->
+                                       {{form.as_ul }}
+                                    </ul>
+                                    <p class="required">* Required Fields</p>
+                                    <div class="buttons-set">
+                                        <a href="{% url 'listing_app:create_order' user.id %}"><button type="submit" >Create New Order</button></a>
+                                    </div> <!--buttons-set-->
+                                </div> <!--content-->                               
+                            </div> <!--col-2 registered-users-->
+                            <!-- <div class="col-md-3"></div> -->
+                        </fieldset> <!--col2-set-->
+                    </form>
+                    <div class="col-12"><p><br></p></div>
+                    <div>
+                        <a class="text-center" href="{% url 'listing_app:order_page' user.id %}"><button type="submit" >Go Back</button></a>
+                    </div>
+                </div> <!--account-login-->
+	        </div><!--main-container-->
+        </div> <!--col1-layout-->
+        <div class="col-12"><p><br></p></div>
+{% endif %}
+
+{% endblock %}
+    
+       
+          
+
+  

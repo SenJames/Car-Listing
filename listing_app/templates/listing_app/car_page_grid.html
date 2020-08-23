@@ -1,0 +1,126 @@
+{% extends "listing_app/base.html" %}
+{% load static %}
+<!DOCTYPE html>
+{% block tittle %}
+Harrier Car List Grid Page
+{% endblock tittle %}
+
+{% block Content %}
+
+          <div class="category-products">
+            <ul class="products-grid">
+              {% if grid %}
+                {% for key in grid %}
+                
+                <li class="item col-lg-4 col-md-3 col-sm-4 col-xs-6">
+                 <div class="item-inner">
+                  <div class="item-img">
+                    <div class="item-img-info"><a href="{% url 'listing_app:detail' key.id %}" title="Retis lapen casen" class="product-image"><img src="{{ key.image.url }}" alt="Retis lapen casen"></a>
+                      {% if key.car_status %}
+                        <div class="new-label new-top-left">Used</div>                                                
+                      {% else %}
+                        <div class="new-label new-top-left">New</div>
+                      {% endif %}
+                      {% if key.car_offer %}
+                        <div class="sale-label sale-top-left">-15%</div>
+                      {% endif %}
+                      <div class="item-box-hover">
+                        <div class="box-inner">
+                          <div class="add_cart">
+                            <button class="button btn-cart" type="button"></button>
+                          </div>
+                          <div class="product-detail-bnt"><a class="button detail-bnt"><span>Quick View</span></a></div>
+                          <div class="actions"><span class="add-to-links"><a href="#" class="link-wishlist" title="Add to Wishlist"><span>Add to Wishlist</span></a> </span> </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item-info">
+                    <div class="info-inner">
+                      <div class="item-title"><a href="{% url 'listing_app:detail' key.id %}" title="Retis lapen casen">{{ key.car_name }}</a> </div>
+                      <div class="item-content">
+                        <div class="rating">
+                          <div class="ratings">
+                            <div class="rating-box">
+                              <div class="rating" style="width:80%"></div>
+                            </div>
+                            <p class="rating-links"><a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
+                          </div>
+                        </div>
+                        <div class="item-price">
+                          <div class="price-box"><span class="regular-price"><span class="price">${{ key.car_price }}.00</span> </span> </div>
+                        </div>
+                        <div class="other-info">
+                          <div class="col-km"><i class="fa fa-tachometer"></i> {{ key.car_mileage }}km</div>
+                          <div class="col-engine"><i class="fa fa-gear"></i> {{ key.car_transmission | upper }}</div>
+                          <div class="col-date"><i class="fa fa-calendar" aria-hidden="true"></i> {{ key.car_year }}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                        
+                </li>
+                {% endfor %}
+              {% endif %}
+
+              {% if price_grid %}
+                {% for key in price_grid %}
+                
+                <li class="item col-lg-4 col-md-3 col-sm-4 col-xs-6">
+                 <div class="item-inner">
+                  <div class="item-img">
+                    <div class="item-img-info"><a href="{% url 'listing_app:detail' key.id %}" title="Retis lapen casen" class="product-image"><img src="{{ key.image.url }}" alt="Retis lapen casen"></a>
+                      {% if key.car_status %}
+                        <div class="new-label new-top-left">Used</div>                                                
+                      {% else %}
+                        <div class="new-label new-top-left">New</div>
+                      {% endif %}
+                      {% if key.car_offer %}
+                        <div class="sale-label sale-top-left">-15%</div>
+                      {% endif %}
+                      <div class="item-box-hover">
+                        <div class="box-inner">
+                          <div class="add_cart">
+                            <button class="button btn-cart" type="button"></button>
+                          </div>
+                          <div class="product-detail-bnt"><a class="button detail-bnt"><span>Quick View</span></a></div>
+                          <div class="actions"><span class="add-to-links"><a href="#" class="link-wishlist" title="Add to Wishlist"><span>Add to Wishlist</span></a> </span> </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item-info">
+                    <div class="info-inner">
+                      <div class="item-title"><a href="{% url 'listing_app:detail' key.id %}" title="Retis lapen casen">{{ key.car_name }}</a> </div>
+                      <div class="item-content">
+                        <div class="rating">
+                          <div class="ratings">
+                            <div class="rating-box">
+                              <div class="rating" style="width:80%"></div>
+                            </div>
+                            <p class="rating-links"><a href="#">1 Review(s)</a> <span class="separator">|</span> <a href="#">Add Review</a> </p>
+                          </div>
+                        </div>
+                        <div class="item-price">
+                          <div class="price-box"><span class="regular-price"><span class="price">${{ key.car_price }}.00</span> </span> </div>
+                        </div>
+                        <div class="other-info">
+                          <div class="col-km"><i class="fa fa-tachometer"></i> {{ key.car_mileage }}km</div>
+                          <div class="col-engine"><i class="fa fa-gear"></i> {{ key.car_transmission | upper }}</div>
+                          <div class="col-date"><i class="fa fa-calendar" aria-hidden="true"></i> {{ key.car_year }}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                        
+                </li>
+                {% endfor %}
+              {% endif %}
+            </ul>
+          </div>
+
+
+
+ {% endblock %}
