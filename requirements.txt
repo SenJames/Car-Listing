@@ -26,7 +26,6 @@ pycodestyle==2.5.0
 pycparser==2.20
 pylint==2.4.4
 python-decouple==3.3
-Python==3.7.7
 pytz==2019.3
 six==1.14.0
 sqlparse==0.3.1
