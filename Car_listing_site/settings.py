@@ -13,16 +13,14 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import django_heroku
 import os
 
-#activate Heroku
-django_heroku.settings(locals())
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
 
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media') 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  
+STATIC_ROOT = os.path.normpath(os.path.join(BASE_DIR, 'staticfiles'))  
 PROJECT_ROOT = os.path.join(os.path.abspath(__file__))
 
 
@@ -142,10 +140,13 @@ USE_TZ = True
 #     STATIC_DIR,
 #     ]
 STATICFILES_DIRS = [
-    os.path.join(PROJECT_ROOT, 'dashboard_app/static'),
-    os.path.join(PROJECT_ROOT, 'listing_app/static')
+    os.path.join(BASE_DIR, 'dashboard_app/static'),
+    os.path.join(BASE_DIR, 'listing_app/static')
     ]
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
 
+
+#activate Heroku
+django_heroku.settings(locals())
