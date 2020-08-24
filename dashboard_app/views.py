@@ -64,7 +64,7 @@ def view_blog(request):
             cat = Category.objects.get(cat_name=catName.upper())
             messages.info(request, 'The category exits')
             return redirect("/dashboard/view-blog/") 
-             
+
         except Category.DoesNotExist:
             cat = Category.objects.create(cat_name=catName.upper(), desc=catDesc.upper())
             cat.save()
@@ -97,8 +97,10 @@ def add_blog(request):
             else:
 
                 post = Post.objects.create(pst_title=title, pst_img=image, content=content, user=author)
-                post.category.set(Category.objects.filter(cat_name=category).first())
-                print(post)
+                post.save()
+                cate = Category.objects.get(cat_name=category)
+                post.category.add(cate)  
+                post.save()
                 messages.success(request, 'New Blog Uploaded')
                 return redirect("dashboard_app:view-blog")
         except Exception as e:
