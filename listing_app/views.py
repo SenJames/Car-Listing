@@ -18,7 +18,7 @@ from django.contrib.auth.decorators import login_required
 #     template_name = "listing_app/index.html"
 
 def index(request):
-    car_list = Car.objects.all()
+    car_list = Car.objects.all().order_by('id')
     
     #creating the paginator
     paginator = Paginator(car_list, 2) # Show 2 contacts per page.
@@ -45,7 +45,7 @@ def index(request):
 
 #This is the view for car_list main page
 def car_view(request):
-    car_list = Car.objects.all()
+    car_list = Car.objects.all().order_by('id')
     
     #creating the paginator
     paginator = Paginator(car_list, 2) # Show 25 contacts per page.
@@ -71,7 +71,7 @@ def car_view(request):
 
 #This is the view for car_grid style
 def car_grid(request):
-    car_list = Car.objects.all()
+    car_list = Car.objects.all().order_by('id')
     
     #creating the paginator
     paginator = Paginator(car_list, 2) # Show 25 contacts per page.
