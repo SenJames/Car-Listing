@@ -11,6 +11,8 @@ from listing_app import views
 from blog.models import Post, Category, Author, Comment
 from dashboard_app.forms import UserForm, UserProfileForm, CarForm, CategoryForm, PostForm, AuthorForm, CommentForm
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
+from django.http import HttpResponseRedirect, HttpResponse
+from django.core.exceptions import ObjectDoesNotExist
 
 # Create your views here.
 @login_required(login_url='/car-listing/login/')
@@ -50,6 +52,24 @@ def charts(request):
 @login_required(login_url='/car-listing/login/')
 def view_blog(request):
     blog = Post.objects.all()
+
+    if request.method == 'POST':
+        catName = request.POST.get('catName')
+        catDesc = request.POST.get('catDesc')
+        print(catDesc)
+        print(catName)
+
+        try:
+
+            cat = Category.objects.get(cat_name=catName.upper())
+            messages.info(request, 'The category exits')
+            return redirect("/dashboard/view-blog/") 
+             
+        except Category.DoesNotExist:
+            cat = Category.objects.create(cat_name=catName.upper(), desc=catDesc.upper())
+            cat.save()
+            messages.success(request, 'Category updated')
+            return redirect("/dashboard/view-blog/")
     context = {
         'blog': blog
     }

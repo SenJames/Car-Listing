@@ -8,7 +8,7 @@
 {% block Content %}
 
 
-{% if blog %}
+
   
 
     <div id="content-wrapper">
@@ -27,6 +27,7 @@
         <h1>My Blogs</h1>
         <hr>
       </div>
+      {% if blog %}
       <!-- /.container-fluid -->
           <div class="form-group col-md-12">
           {% for msg in messages %}
@@ -34,6 +35,7 @@
           {% endfor %}
 
         </div>
+        
           <!-- DataTables Example -->
           <div class="card mb-3">
             <div class="card-header">
@@ -106,6 +108,26 @@
               </div>
             </div>
           </div>
+      {% endif %}
+      <h4>Add Categories</h4>
+      <form method="POST" enctype="multipart/form-data" id='postform'>
+        {% csrf_token %}
+        <div class="col-md-4">
+
+          <div class="form-group">
+            <div class="form-label-group">
+              <input type="text" id="text" name="catName" class="form-control" placeholder="Category Title" required="required" autofocus="autofocus">
+              <label for="text">Add Blog Category</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="form-label-group">
+              <textarea name="catDesc" class="form-control" id="" cols="30" rows="10" required="required" placeholder="Description" autofocus="autofocus"></textarea>
+            </div>
+          </div>
+          <button class="btn btn-primary" type="submit">Create </button>
+        </div>
+        </form>
 
           
 
@@ -121,7 +143,7 @@
 
     </div>
     <!-- /.content-wrapper -->
-    {% endif %}
+
     {% endblock %}
   </div>
   <!-- /#wrapper -->

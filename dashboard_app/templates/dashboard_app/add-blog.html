@@ -22,88 +22,89 @@
         <!-- Page Content -->
         <h1>Add New Blogs</h1>
         <hr>
-        <div class="form-group col-md-12">
-          {% for msg in messages %}
-          {{msg}}
-          {% endfor %}
-        </div>
-        <p>This is a great starting point for new custom pages.</p>
-
-        <form method="POST" enctype="multipart/form-data" id='postform'>
-          {% csrf_token %}
-          <div class="form-group">
-            <div class="form-label-group">
-              <input type="text" id="text" name="title" class="form-control" placeholder="Post Title" required="required" autofocus="autofocus">
-              <label for="text">Post Title</label>
-            </div>
+        <div class="col-md-6">
+          <div class="form-group col-md-12">
+            {% for msg in messages %}
+            {{msg}}
+            {% endfor %}
           </div>
+          <p>This is a great starting point for new custom pages.</p>
 
-          <div class="form-group">
-            <div class="form-label-group">
-              <textarea name="content" placeholder="Main Content" class="form-control" id="" cols="30" rows="10" required="required" placeholder="Enter Main Blog Here" autofocus="autofocus"></textarea>
+          <form method="POST" enctype="multipart/form-data" id='postform'>
+            {% csrf_token %}
+            <div class="form-group">
+              <div class="form-label-group">
+                <input type="text" id="text" name="title" class="form-control" placeholder="Post Title" required="required" autofocus="autofocus">
+                <label for="text">Post Title</label>
+              </div>
             </div>
-          </div>
 
-          <div class="form-group">
-            <div class="form-label-group">
-              <input type="file" id="image" name="image" class="form-control" placeholder="Images" required="required" autofocus="autofocus">
-              <label for="image">Post Image</label>
+            <div class="form-group">
+              <div class="form-label-group">
+                <textarea name="content" placeholder="Main Content" class="form-control" id="" cols="30" rows="10" required="required" placeholder="Enter Main Blog Here" autofocus="autofocus"></textarea>
+              </div>
             </div>
-          </div>
 
-          <div class="form-group">
-            <div class="form-label-group">
-              <input type="text" id="Author" disabled="True" name="author" value="{{ user }}" class="form-control" required="required" autofocus="autofocus">
-              <label for="text">Author</label>
+            <div class="form-group">
+              <div class="form-label-group">
+                <input type="file" id="image" name="image" class="form-control" placeholder="Images" required="required" autofocus="autofocus">
+                <label for="image">Post Image</label>
+              </div>
             </div>
-          </div>
 
-          <div class="form-group">
-            <label for="category">Category:</label>
-            <div class="form-label-group">
-              <select name="category" id="category" form="postform" required="required" autofocus="autofocus">
-                {% for item in categories %}
-                  
-                <option value="{{item.cat_name}}">{{ item.cat_name }}</option>
-                {% endfor %}
-              </select>
+            <div class="form-group">
+              <div class="form-label-group">
+                <input type="text" id="Author" disabled="True" name="author" value="{{ user }}" class="form-control" required="required" autofocus="autofocus">
+                <label for="text">Author</label>
+              </div>
             </div>
-          </div>
-              <ul>
-                  <div class="form-row">
 
-                      <div class="form-group col-md-12">
-                      {{ form.pst_title.label_tag }}
-                      {{ form.pst_title}}
-                      </div>
-                      
-                      <div class="form-group col-md-6">
-                        {{form.category.label_tag }}
-                        {{ form.category}}
-                      </div>
+            <div class="form-group">
+              <label for="category">Category:</label>
+              <div class="form-label-group">
+                <select name="category" id="category" form="postform" required="required" autofocus="autofocus">
+                  {% for item in categories %}
+                    
+                  <option value="{{item.cat_name}}">{{ item.cat_name }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+                <ul>
+                    <div class="form-row">
 
-                      <div class="form-group col-md-6">
-                          {{form.pst_img.label_tag }}
-                          {{ form.pst_img}}
-                      </div>
-  
-                      <div class="form-group col-md-12">
-                          {{form.content.label_tag }}
-                          {{ form.content}}
-                      </div>
+                        <div class="form-group col-md-12">
+                        {{ form.pst_title.label_tag }}
+                        {{ form.pst_title}}
+                        </div>
+                        
+                        <div class="form-group col-md-6">
+                          {{form.category.label_tag }}
+                          {{ form.category}}
+                        </div>
 
-                      <div class="form-group col-md-12">
-                          {{form.user.label_tag }}
-                          {{ form.user}}
+                        <div class="form-group col-md-6">
+                            {{form.pst_img.label_tag }}
+                            {{ form.pst_img}}
+                        </div>
+    
+                        <div class="form-group col-md-12">
+                            {{form.content.label_tag }}
+                            {{ form.content}}
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            {{form.user.label_tag }}
+                            {{ form.user}}
+                        </div>
+    
                       </div>
-  
                     </div>
-                  </div>
 
-                  <button class="btn btn-primary" type="submit">Update</button>
-              </ul>
-      </form>
-
+                    <button class="btn btn-primary" type="submit">Add</button>
+                </ul>
+        </form>
+      </div>
       </div>
       <!-- /.container-fluid -->
 
