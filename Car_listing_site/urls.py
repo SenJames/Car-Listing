@@ -19,6 +19,7 @@ from django.conf.urls.static import static
 from django.conf.urls import url, include
 from django.urls import path, include
 from listing_app import views
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
 
@@ -28,6 +29,21 @@ urlpatterns = [
     url(r"^car-listing/", include('listing_app.urls')),
     url(r"^dashboard/", include('dashboard_app.urls')),
     url(r"^blog/", include('blog.urls')),
+
+    #password 
+    path('change-password/', auth_views.PasswordChangeView.as_view(template_name='dashboard_app/change-password.html'), 
+        name='password_change'),
+    path('change-password/done/', auth_views.PasswordChangeDoneView.as_view(template_name='dashboard_app/change-password-done.html'), 
+        name='password_change_done'),
+    path('password_reset/', auth_views.PasswordResetView.as_view(template_name='dashboard_app/forgot-password.html'),
+         name='password_reset'),
+    path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='listing_app/reset-password-done.html'), 
+        name='password_reset_done'),
+    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='listing_app/password-reset-confirm.html'), 
+        name='password_reset_confirm'),
+    path('reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='listing_app/reset-done.html'), 
+        name='password_reset_complete'),
+
     
     
 ]

@@ -24,6 +24,7 @@
         <hr>
         <p>Edit Your Profile</p>
 
+        <a class="btn btn-primary" href="{% url 'password_change' %}">Change Password</a>
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
                 <ul>

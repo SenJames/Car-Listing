@@ -85,7 +85,7 @@ Create an Account
                                     <p class="required">* Required Fields</p>
                                     <div class="buttons-set">
                                         <button type="submit" class="button" title="register" name="register" id="send2"><span>Register</span></button>
-                                        <a href="#" class="forgot-word">Forgot Your Password?</a>
+                                        <a href="{% url 'password_reset' %}" class="forgot-word">Forgot Your Password?</a>
                                         <a href="{% url 'listing_app:login' %}" class="forgot-word">Login</a>
                                     </div> <!--buttons-set-->
                                 </div> <!--content-->                               
