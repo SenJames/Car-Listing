@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from  django.contrib.auth.models import User, auth
+from  django.contrib.auth.models import User, auth, Group
 from django.contrib import messages
 from django.shortcuts import render
 from django.views.generic import TemplateView,ListView,DetailView
@@ -10,6 +10,7 @@ from django.core.paginator import Paginator,EmptyPage, PageNotAnInteger
 from .forms import OrderForm
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
+from dashboard_app.decorators import unauthenticated_user, dash_allowed_admin, allowed_users, dash_allowed_customer
 
 # Create your views here.
 
@@ -249,9 +250,9 @@ def review(request, car_id):
     
     return redirect('listing_app/car_detail.html')
 
-#This is the registration page
+#This is the registration page for regular customers
+@unauthenticated_user
 def register(request):
-
     if request.method == 'POST':
         first_name = request.POST['first_name']
         last_name = request.POST['last_name']
@@ -270,11 +271,14 @@ def register(request):
             else:
                 user = User.objects.create_user(first_name=first_name, last_name=last_name, email=email, username=username, password=password)
                 user.save()
+                group = Group.objects.get(name="customers")
+                user.groups.add(group)
                 user_prof = UserProfile.objects.create(profile_user=user)
                 user_prof.profile_pic = 'listing_app/member1.png'
                 # user.save()
                 # user.save()
                 user_prof.save()
+                user.save()
                 messages.success(request,'You have successfully registered, Please login')
                 return redirect('listing_app:login')
         else:
@@ -282,7 +286,46 @@ def register(request):
             return redirect('listing_app:register')       
     return render(request, 'listing_app/register.html')
 
+#registeration for dealers
+@unauthenticated_user
+def registerDealers(request):
+    if request.method == 'POST':
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+        email = request.POST['email']
+        username = request.POST['username']
+        password = request.POST['password']
+        confirm_pass = request.POST['confirm']
+        
+        if password == confirm_pass:
+            if User.objects.filter(username=username).exists():
+                messages.info(request,f'{username} Taken, Please try again')
+                return redirect('listing_app:dealer_reg')
+            elif User.objects.filter(email=email).exists():
+                messages.info(request,f'{email} already exists, contact admin')
+                return redirect('listing_app:dealer_reg')
+            else:
+                user = User.objects.create_user(first_name=first_name, last_name=last_name, email=email, username=username, password=password)
+                user.save()
+                group = Group.objects.get(name="dealers")
+                user.groups.add(group)
+                user_prof = UserProfile.objects.create(profile_user=user)
+                user_prof.profile_pic = 'listing_app/member1.png'
+                # user.save()
+                # user.save()
+                user_prof.save()
+                user.save()
+                messages.success(request,'You have successfully registered, Please login')
+                return redirect('listing_app:login')
+        else:
+            messages.error(request, 'Password mismatch')
+            return redirect('listing_app:register')       
+    return render(request, 'listing_app/reg_dealer.html')
+
+
 #this is the login page
+@unauthenticated_user
+# @dash_allowed_users(allowed_roles=["dealers"])
 def login(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -306,6 +349,8 @@ def logout(request):
 
 #this is the dashboard page
 @login_required(login_url='listing_app/login.html')
+# @allowed_users(allowed_roles=["customers"])
+@dash_allowed_customer(allowed_roles=["customers"])
 def dashboard(request):
     
 

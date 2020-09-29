@@ -18,15 +18,17 @@ Create an Account
         <div class="main-container col1-layout wow bounceInUp animated animated" style="visibility: visible;">     
 	        <div class="main">                     
                 <div class="account-login container">
-                    <div class="text-primary"> {% for message in messages %}
-                      {{ message }}
-                    {% endfor %}</div>
+                    <div class="text-primary"> 
+                        {% for message in messages %}
+                        <div class="text-primary alert alert-danger">  {{ message }}  </div> 
+                        {% endfor %}
+                    </div>
                     <form method="POST" id="login-form">
                         {% csrf_token %}
                         <input name="form_key" type="hidden" value="EPYwQxF6xoWcjLUr">
                         <fieldset class="col2-set">
                             <div class="col-md-12 col registered-users">
-                                <h3><strong>Register</strong></h3>
+                                <h3><strong>Register As Dealer</strong></h3>
                                 <hr>             
                                 <div class="content">
                                     <p>If you have an account with us, please log in.</p>
@@ -34,37 +36,37 @@ Create an Account
                                         <li class="col-md-6">
                                             <label for="firstname">First Name<em class="required">*</em></label>
                                             <div class="input-box">
-                                                <input type="text" name="first_name" id="firstname" class="input-text required-entry" placeholder="First Name">
+                                                <input type="text" name="first_name" id="firstname" class="input-text required-entry" required placeholder="First Name">
                                             </div>
                                         </li>
                                         <li class="col-md-6">
                                             <label for="lastname">Surname<em class="required">*</em></label>
                                             <div class="input-box">
-                                                <input type="text" name="last_name" id="lastname" class="input-text required-entry" placeholder="Surname">
+                                                <input type="text" name="last_name" id="lastname" class="input-text required-entry" required placeholder="Surname">
                                             </div>
                                         </li>
                                         <li class="col-md-6">
                                             <label for="email">Email Address<em class="required">*</em></label>
                                             <div class="input-box">
-                                                <input type="email" name="email" id="email" class="input-text required-entry validate-email" placeholder="Email Address">
+                                                <input type="email" name="email" id="email" class="input-text required-entry validate-email" required placeholder="Email Address">
                                             </div>
                                         </li>
                                         <li class="col-md-6">
                                             <label for="username">Username<em class="required">*</em></label>
                                             <div class="input-box">
-                                                <input type="text" name="username"  id="username" class="input-text required-entry" placeholder="Username">
+                                                <input type="text" name="username"  id="username" class="input-text required-entry" required placeholder="Username">
                                             </div>
                                         </li>
                                         <li class="col-md-6">
                                             <label for="pass">Password<em class="required">*</em></label>
                                             <div class="input-box">
-                                                <input type="password" name="password" class="input-text required-entry validate-password" id="pass" placeholder="Password">
+                                                <input type="password" name="password" class="input-text required-entry validate-password" required id="pass" placeholder="Password">
                                             </div>
                                         </li>
                                         <li class="col-md-6">
                                             <label for="pass">Confirm Password<em class="required">*</em></label>
                                             <div class="input-box">
-                                                <input type="password" name="confirm" class="input-text required-entry validate-password" id="pass" placeholder="Confirm Password">
+                                                <input type="password" name="confirm" class="input-text required-entry validate-password" required id="pass" placeholder="Confirm Password">
                                             </div>
                                         </li>
                                     </ul>
@@ -84,8 +86,7 @@ Create an Account
 
                                     <p class="required">* Required Fields</p>
                                     <div class="buttons-set">
-                                        <button type="submit" class="button" title="register" name="register" id="send2"><span>Register</span></button>
-                                        <button type="submit" class="button" name="regDeal"><a href="{% url 'listing_app:dealer_reg' %}" class="forgot-word">Register as Dealer</a></button>
+                                        <button type="submit" class="button" title="register" name="submit" id="send2"><span>Submit</span></button>
                                         <a href="{% url 'password_reset' %}" class="forgot-word">Forgot Your Password?</a>
                                         <a href="{% url 'listing_app:login' %}" class="forgot-word">Login</a>
                                     </div> <!--buttons-set-->

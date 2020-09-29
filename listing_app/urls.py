@@ -26,6 +26,7 @@ urlpatterns= [
     path("delete_order/<int:pk>", views.deleteOrder, name="delete_order"),
     path("order-page/<int:user_id>", views.orderPage, name="order_page"),
     path("register/", views.register, name="register"),
+    path("dealer_register/", views.registerDealers, name="dealer_reg"),
     path("login/", views.login, name="login"),
     path("logout/", views.logout, name="logout"),
     path("contact/", views.contact_us, name="contact-us"),

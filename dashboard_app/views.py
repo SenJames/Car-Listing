@@ -13,9 +13,11 @@ from dashboard_app.forms import UserForm, UserProfileForm, CarForm, CategoryForm
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.exceptions import ObjectDoesNotExist
-
+from .decorators import allowed_users, dash_allowed_admin #, unauthenticated_dash
 # Create your views here.
 @login_required(login_url='/car-listing/login/')
+@dash_allowed_admin(allowed_roles=["dealers"])
+# @unauthenticated_dash(["dealer"])
 def home(request):
 
     context = {
@@ -50,6 +52,7 @@ def charts(request):
 
 
 @login_required(login_url='/car-listing/login/')
+@allowed_users(allowed_roles=["dealers"])
 def view_blog(request):
     blog = Post.objects.all()
 
@@ -76,6 +79,8 @@ def view_blog(request):
     return render(request, 'dashboard_app/view-blog.html', context)
 
 @login_required(login_url='/car-listing/login/')
+@dash_allowed_admin(allowed_roles=["dealers"])
+# @allowed_users(allowed_roles=["admin", "staff"])
 def add_blog(request):
     # form = PostForm()
     categories = Category.objects.all()
@@ -114,6 +119,8 @@ def add_blog(request):
 
 
 @login_required(login_url='/car-listing/login/')
+# @allowed_users(allowed_roles=["admin", "staff"])
+@dash_allowed_admin(allowed_roles=["dealers"])
 def edit_blog(request, title):
     eachBlog = Post.objects.get(pst_title=title)
     form = PostForm(instance=eachBlog)
@@ -141,6 +148,9 @@ def edit_blog(request, title):
     }
     return render(request, 'dashboard_app/edit-blog.html', context)
 
+@login_required(login_url='/car-listing/login/')
+@dash_allowed_admin(allowed_roles=["dealers"])
+# @allowed_users(allowed_roles=["admin", "staff"])
 def del_post(request, title):
     user = request.user
     post = Post.objects.get(pst_title=title)
@@ -158,6 +168,8 @@ def del_post(request, title):
 
 
 @login_required(login_url='/car-listing/login/')
+# @allowed_users(allowed_roles=["admin", "staff"])
+@dash_allowed_admin(allowed_roles=["dealers"])
 def edit_prod(request, pk):
     product = Car.objects.get(id=pk)
     form = CarForm(instance=product)
@@ -178,6 +190,7 @@ def edit_prod(request, pk):
 
 
 @login_required(login_url='/car-listing/login/')
+# @allowed_users(allowed_roles=["admin", "staff"])
 def view_prod(request, pk):
     cars = Car.objects.filter(car_user__id=pk)
     
@@ -188,6 +201,7 @@ def view_prod(request, pk):
 
 
 @login_required(login_url='/car-listing/login/')
+# @allowed_users(allowed_roles=["admin", "staff"])
 def add_prod(request):
     
     form = CarForm()
@@ -208,6 +222,7 @@ def add_prod(request):
     return render(request, 'dashboard_app/add-product.html', context)
 
 @login_required(login_url='/car-listing/login/')
+# @allowed_users(allowed_roles=["admin", "staff"])
 def del_prod(request, pk):
     cars = Car.objects.filter(id=pk)
     
