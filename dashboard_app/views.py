@@ -34,10 +34,30 @@ def recover_pass(request):
     }
     return render(request, 'dashboard_app/forgot-password.html', context)
 
+#Table for handling users, dealers and customers
 @login_required(login_url='/car-listing/login/')
 def tables(request):
-    
+    dealers_group = User.objects.filter(groups__name="dealers")
+    # dealers_car_count = Car.objects.filter(car_user=dealers_group)
+    customer_group = User.objects.filter(groups__name="customers")
+    staff_group = User.objects.filter(is_superuser=True)
+    cars_available = Car.objects.all()
+    date_cars = Car.objects.last().date_added
+    date_user = customer_group.last().date_joined
+    date_dealer = dealers_group.last().date_joined
+    # print(date_cars.date_added)
+    print(date_user)
+    print(staff_group)
+    print(date_user)
+    print(date_dealer)
     context = {
+        "dealers": dealers_group,
+        "customers": customer_group,
+        "staff": staff_group,
+        "products": cars_available,
+        "lastAdded_cars": date_cars,
+        "lastAdded_customer": date_user,
+        "lastUpdated_dealer": date_dealer,
 
     }
     return render(request, 'dashboard_app/tables.html', context)

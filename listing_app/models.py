@@ -29,10 +29,12 @@ class UserProfile(models.Model):
     # profile_user = models.ForeignKey(User, on_delete=models.CASCADE, default=7, blank=True, null=True)
     profile_phone = PhoneNumberField(blank=True, null=True)
     profile_seller = models.CharField(max_length=100, choices=SELLER, default='Dealer')
+    date_joined = models.DateTimeField(auto_now_add=True, blank=True)
+    profile_updated = models.DateTimeField(auto_now=True, blank=True)
 
 
     def full_name(self):
-        return '{}'.format(self.profile_user.username)
+        return '{}'.format(self.profile_user.first_name + " " + self.profile_user.last_name)
     
     def publish(self):
         self.published_date = timezone.now()
@@ -122,6 +124,8 @@ class Car(models.Model):
 
     #User WHo posted the car
     car_user = models.ForeignKey(User, default=0, related_name='owner', on_delete=models.CASCADE)
+    date_added = models.DateTimeField(auto_now_add=True, blank=True)
+    date_updated = models.DateTimeField(auto_now=True, blank=True)
 
     # def get_absolute_image(self):
     #     return os.path.join('/media', self.image)

@@ -13,9 +13,10 @@ class ReviewAdmin(admin.ModelAdmin):
 class OrderAdmin(admin.ModelAdmin):
     list_display = ("date_created", "customer")
 
+class UserProfileAdmin(admin.ModelAdmin):
+    list_display = ("profile_user",)
 
-
-admin.site.register(UserProfile) 
+admin.site.register(UserProfile, UserProfileAdmin) 
 admin.site.register(Car, CarAdmin) 
 admin.site.register(Review, ReviewAdmin) 
 admin.site.register(Order, OrderAdmin)          
