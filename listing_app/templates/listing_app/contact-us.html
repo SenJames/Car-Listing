@@ -19,7 +19,11 @@ Contact Us
       <div class="row">
         <div class="col-main col-sm-9 wow bounceInUp animated animated" style="visibility: visible;">
           <div id="messages_product_view"></div>
+          <div class="text-primary"> {% for message in messages %}
+            {{ message }}
+            {% endfor %}</div>
           <form action="#" id="contactForm" method="post">
+            {% csrf_token %}
             <div class="static-contain">
               <fieldset class="group-select">
                 <ul>
